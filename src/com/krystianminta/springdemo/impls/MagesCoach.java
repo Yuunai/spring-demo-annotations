@@ -7,18 +7,18 @@ import com.krystianminta.springdemo.interfaces.Coach;
 import com.krystianminta.springdemo.interfaces.FortuneService;
 
 @Component
-public class WarriorsCoach implements Coach {
+public class MagesCoach implements Coach {
 
-	private FortuneService fortuneService;
+	FortuneService fortuneService;
 	
 	@Autowired
-	public void WarriorsCoach(FortuneService fortuneService) {
+	public void MagesCoach(FortuneService fortuneService) {
 		this.fortuneService = fortuneService;
 	}
 	
 	@Override
 	public String getDailyWorkout() {
-		return "Swing your sword 500 times!";
+		return "Cast 15 fire balls, and then try to expand your mana pool through meditation!";
 	}
 	
 	public String getDailyFortune() {
