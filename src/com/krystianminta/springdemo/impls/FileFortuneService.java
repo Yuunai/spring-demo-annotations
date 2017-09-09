@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
 import org.springframework.stereotype.Component;
 
 import com.krystianminta.springdemo.interfaces.FortuneService;
@@ -21,7 +24,21 @@ public class FileFortuneService implements FortuneService {
 	List<String> fileFortunes;
 
 	public FileFortuneService() {
+		
+		}
+		
+
+	
+	@Override
+	public String getDailyFortune() {
+		return fileFortunes.get(random.nextInt(fileFortunes.size()));
+	}
+	
+	@PostConstruct
+	public void prepareForWork() {
 		fileFortunes = new ArrayList<>();
+		
+		System.out.println("Reading from file: " + FILE_NAME);
 		
 		try (BufferedReader br = new BufferedReader(new FileReader(FILE_NAME))) {
 			
@@ -33,13 +50,12 @@ public class FileFortuneService implements FortuneService {
 		} catch (IOException e) {
 				e.printStackTrace();
 			}
-		}
-		
-
+	}
 	
-	@Override
-	public String getDailyFortune() {
-		return fileFortunes.get(random.nextInt(fileFortunes.size()));
+	@PreDestroy
+	public void prepareToDie() {
+		System.out.println("Just a clenup things");
+		fileFortunes.clear();
 	}
 
 }
