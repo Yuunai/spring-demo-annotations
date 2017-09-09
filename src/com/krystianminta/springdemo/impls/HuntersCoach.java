@@ -8,20 +8,26 @@ import com.krystianminta.springdemo.interfaces.Coach;
 import com.krystianminta.springdemo.interfaces.FortuneService;
 
 @Component
-public class WarriorsCoach implements Coach {
+public class HuntersCoach implements Coach {
 
 	private FortuneService fortuneService;
 	
+	public HuntersCoach() {
+		
+	}
+	
 	@Autowired
-	public WarriorsCoach(@Qualifier("happyFortuneService") FortuneService fortuneService) {
+	@Qualifier("happyFortuneService")
+	public void setFortuneService(FortuneService fortuneService) {
 		this.fortuneService = fortuneService;
 	}
-	
+
 	@Override
 	public String getDailyWorkout() {
-		return "Swing your sword 500 times!";
+		return "Go hunting and bring me 10 boars!";
 	}
-	
+
+	@Override
 	public String getDailyFortune() {
 		return fortuneService.getDailyFortune();
 	}
